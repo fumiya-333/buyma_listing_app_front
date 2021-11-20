@@ -1,41 +1,33 @@
-import React from 'react';
+import { useRef } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Cpright } from '../../components/Cpright';
+import { SignInHook } from '../../hooks/SignInHook';
+import { WarningMessage, WarningMessageHandles } from '../../components/WarningMessage';
+import { ProgressDialog, ProgressDialogHandles } from '../../components/ProgressDialog';
 
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
+/** テーマの作成 */
 const theme = createTheme();
 
+/**
+ * ログインコンテンツ用コンポーネント
+ * 
+ * @returns ログインコンテンツ
+ */
 export function SignInContents() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  /** 警告メッセージ参照オブジェクト */
+  const warningMessageRef = useRef<WarningMessageHandles>(null);
+  /** プログレスダイアログ参照オブジェクト */
+  const progressDialogRef = useRef<ProgressDialogHandles>(null);
+  /** ログイン入力管理 */
+  const { email, password, changeEmail, changePassword, procSignIn } = SignInHook(warningMessageRef, progressDialogRef);
 
   return (
     <ThemeProvider theme={theme}>
@@ -55,42 +47,43 @@ export function SignInContents() {
           <Typography component="h1" variant="h5">
             ログイン
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box sx={{ mt: 1 }}>
             <TextField
               margin="normal"
-              required
+              value={email}
               fullWidth
               id="email"
               label="メールアドレス"
               name="email"
               autoComplete="email"
+              onChange={changeEmail}
               autoFocus
             />
             <TextField
               margin="normal"
-              required
+              value={password}
               fullWidth
               name="password"
               label="パスワード"
               type="password"
               id="password"
+              onChange={changePassword}
               autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="ログイン情報を保存する"
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
+              onClick={procSignIn}
               sx={{ mt: 3, mb: 2 }}
             >
               ログイン
             </Button>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Cpright sx={{ mt: 8, mb: 4 }} />
+        <WarningMessage ref={warningMessageRef}/>
+        <ProgressDialog ref={progressDialogRef}/>
       </Container>
     </ThemeProvider>
   );

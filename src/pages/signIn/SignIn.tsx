@@ -3,6 +3,11 @@ import Box from '@mui/material/Box';
 import { Header } from '../../components/Header';
 import { SignInContents } from './SignInContents';
 
+/**
+ * ログイン画面用コンポーネント
+ * 
+ * @returns ログイン画面
+ */
 export function SignIn() {
   return (
     <React.Fragment>
