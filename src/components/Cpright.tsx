@@ -6,7 +6,7 @@ import { Typography, Link } from '@mui/material';
  * @param props プロパティ
  * @returns コピーライト
  */
-export function Cpright(props: any) {
+export const Cpright = (props: any) => {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}

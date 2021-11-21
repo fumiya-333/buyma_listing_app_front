@@ -15,7 +15,7 @@ const drawerWidth = 240;
  * 
  * @returns サイドバー
  */
-export function Sidebar() {
+export const Sidebar = () => {
   return (
       <Drawer
         variant="permanent"

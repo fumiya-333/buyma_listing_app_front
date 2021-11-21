@@ -13,7 +13,7 @@ import { getAddHoursNow } from '../commons/DateUtil';
  * @param progressDialogRef プログレスダイアログ参照オブジェクト
  * @returns ログイン入力管理用フック
  */
-export function SignInHook(warningMessageRef: RefObject<any>, progressDialogRef: RefObject<any>){
+export const SignInHook = (warningMessageRef: RefObject<any>, progressDialogRef: RefObject<any>) => {
   /** メールアドレス */
   const [email, setEmail] = useState('');
   /** パスワード */
@@ -28,7 +28,7 @@ export function SignInHook(warningMessageRef: RefObject<any>, progressDialogRef:
    * 
    * @param e changeイベント
    */
-  function changeEmail(e: ChangeEvent<HTMLInputElement>){
+  const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   }
 
@@ -37,7 +37,7 @@ export function SignInHook(warningMessageRef: RefObject<any>, progressDialogRef:
    * 
    * @param e changeイベント
    */
-  function changePassword(e: ChangeEvent<HTMLInputElement>){
+  const changePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   }
 
@@ -45,7 +45,7 @@ export function SignInHook(warningMessageRef: RefObject<any>, progressDialogRef:
    * ログイン処理
    * 
    */
-  function procSignIn() {
+  const procSignIn = () => {
     var message: string[] = [''];
     // 入力チェック
     if(!checkedInput(message)){
@@ -62,7 +62,7 @@ export function SignInHook(warningMessageRef: RefObject<any>, progressDialogRef:
    * @param message メッセージ
    * @returns 入力チェック結果
    */
-  function checkedInput(message: string[]) {
+  const checkedInput = (message: string[]) => {
     if(isNull(email)){
       message[0] = AppConstants.ATTR_EMAIL + AppConstants.ERR_MSG_INPUT;
       return false;
@@ -85,7 +85,7 @@ export function SignInHook(warningMessageRef: RefObject<any>, progressDialogRef:
    * ログイン処理実行
    * 
    */
-  async function execSignIn(){
+  const execSignIn = async () => {
     try {
       // プログレスダイアログ タイトル設定
       progressDialogRef.current?.setTitle(AppConstants.ROAD_MSG_SIGN_IN);

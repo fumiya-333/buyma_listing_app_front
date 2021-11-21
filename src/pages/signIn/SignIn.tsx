@@ -7,7 +7,7 @@ import { SignInContents } from './SignInContents';
  * 
  * @returns ログイン画面
  */
-export function SignIn() {
+export const SignIn = () => {
   return (
     <>
       <Box sx={{ overflow: 'auto' }}>

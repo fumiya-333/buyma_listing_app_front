@@ -8,7 +8,7 @@ import * as AppConstants from '../commons/AppConstants';
  * 
  * @returns ヘッダー
  */
-export function Header() {
+export const Header = () => {
   const location = useLocation();
   const { procSignOut } = SignOutHook();
 

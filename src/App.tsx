@@ -8,7 +8,7 @@ import { SignIn } from './pages/signIn/SignIn';
 import { PrivateRoute } from './PrivateRoute';
 import * as AppConstants from './commons/AppConstants';
 
-export function App() {
+export const App = () => {
   return (
     <BrowserRouter>
       <Routes>

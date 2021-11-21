@@ -14,7 +14,7 @@ const theme = createTheme();
  * 
  * @returns ログインコンテンツ
  */
-export function SignInContents() {
+export const SignInContents = () => {
   /** 警告メッセージ参照オブジェクト */
   const warningMessageRef = useRef<WarningMessageHandles>(null);
   /** プログレスダイアログ参照オブジェクト */

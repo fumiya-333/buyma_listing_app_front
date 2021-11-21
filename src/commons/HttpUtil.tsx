@@ -10,7 +10,7 @@ axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
  * @param params パラメータ
  * @returns 処理結果（成功/失敗）
  */
-export async function httpGet(url: string, params: object) {
+export const httpGet = async (url: string, params: object) => {
   try {
     return await axios.get(url, params);
   } catch(e: any) {
@@ -28,7 +28,7 @@ export async function httpGet(url: string, params: object) {
  * @param params パラメータ
  * @returns 処理結果（成功/失敗）
  */
-export async function httpPost(url: string, params: object) {
+export const httpPost = async (url: string, params: object) => {
   try {
     return await axios.post(url, params);
   } catch(e: any) {

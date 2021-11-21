@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
  * 
  * @returns cookie管理フック
  */
-export function CookieUtil(){
+export const CookieUtil = () => {
   /** cookie管理フック */
   const [cookies, setCookie, removeCookie] = useCookies();
 
@@ -16,7 +16,7 @@ export function CookieUtil(){
    * @param value cookieの値
    * @param date cookie有効期限日付
    */
-  function saveCookie(key: string, value: any, date: Date | null){
+  const saveCookie = (key: string, value: any, date: Date | null) => {
     date === null ? setCookie(key, value) : setCookie(key, value, { expires: date });
   }
 
@@ -25,7 +25,7 @@ export function CookieUtil(){
    * 
    * @returns cookie
    */
-  function getCookies(){
+  const getCookies = () => {
     return cookies;
   }
 
@@ -34,7 +34,7 @@ export function CookieUtil(){
    * 
    * @param key cookieのキー
    */
-  function deleteCookie(key: string){
+  const deleteCookie = (key: string) => {
     removeCookie(key);
   }
 

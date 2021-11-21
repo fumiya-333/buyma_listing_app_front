@@ -45,7 +45,7 @@ export const WarningMessage = forwardRef<WarningMessageHandles>((props, ref) => 
      * @param newState メッセージ表示、表示位置状態管理
      * @param message メッセージ
      */
-    showMessage(newState: SnackbarOrigin, message: string){
+    showMessage(newState: SnackbarOrigin, message: string) {
       setState({ open: true, ...newState });
       setMessage(message);
     }
@@ -55,7 +55,7 @@ export const WarningMessage = forwardRef<WarningMessageHandles>((props, ref) => 
    * 警告メッセージを閉じる
    * 
    */
-  function closeMessage(){
+  const closeMessage = () => {
     setState({ ...state, open: false });
   }
 

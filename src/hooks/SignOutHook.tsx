@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
  * 
  * @returns ログアウト管理用フック
  */
-export function SignOutHook(){
+export const SignOutHook = () => {
   /** クッキー処理 */
   const { deleteCookie } = CookieUtil();
     /** 画面遷移 */
@@ -17,7 +17,7 @@ export function SignOutHook(){
    * ログアウト処理
    * 
    */
-  function procSignOut() {
+  const procSignOut = () => {
     // クッキーの削除
     deleteCookie(AppConstants.KEY_TOKEN);
     // ログイン画面へ遷移する
