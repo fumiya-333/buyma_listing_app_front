@@ -44,3 +44,14 @@ export const END_POINT_INCOME_MANGEGEMENT = '/income_management';
 export const END_POINT_MANUAL = '/manual';
 /** エンドポイント 設定画面 */
 export const END_POINT_SETTING = '/setting';
+
+/** サイドバー ページ名称 出品リスト */
+export const SIDEBAR_PAGE_NAME_TXT_LISTING = '出品リスト';
+/** サイドバー ページ名称 お問い合わせ一覧 */
+export const SIDEBAR_PAGE_NAME_TXT_CONTACTS = 'お問い合わせ一覧';
+/** サイドバー ページ名称 収支管理表 */
+export const SIDEBAR_PAGE_NAME_TXT_INCOME_MANGEGEMENT = '収支管理表';
+/** サイドバー ページ名称 マニュアル */
+export const SIDEBAR_PAGE_NAME_TXT_MANUAL = 'マニュアル';
+/** サイドバー ページ名称 設定 */
+export const SIDEBAR_PAGE_NAME_TXT_SETTING = '設定';

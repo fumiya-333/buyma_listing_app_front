@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as AppConstants from './AppConstants';
 
 /** axiosのBaseURL設定 */
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
@@ -13,10 +12,12 @@ axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
  */
 export async function httpGet(url: string, params: object) {
   try {
-    const res = await axios.get(url, params);
-    return { config: res.config, data: res.data, headers: res.headers, request: res.request, status: res.status, statusText: res.statusText, error: null, successFlg: AppConstants.ON_FLG }
-  } catch(err) {
-    return { err: err, successFlg: AppConstants.OFF_FLG };
+    return await axios.get(url, params);
+  } catch(e: any) {
+    if(e.response === undefined){
+      console.log(e.message);
+    }
+    throw e;
   }
 }
 
@@ -29,9 +30,11 @@ export async function httpGet(url: string, params: object) {
  */
 export async function httpPost(url: string, params: object) {
   try {
-    const res = await axios.post(url, params);
-    return { config: res.config, data: res.data, headers: res.headers, request: res.request, status: res.status, statusText: res.statusText, error: null, successFlg: AppConstants.ON_FLG }
-  } catch(err) {
-    return { err: err, successFlg: AppConstants.OFF_FLG };
+    return await axios.post(url, params);
+  } catch(e: any) {
+    if(e.response === undefined){
+      console.log(e.message);
+    }
+    throw e;
   }
 }

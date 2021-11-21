@@ -1,7 +1,6 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
-import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
-import Stack from '@mui/material/Stack';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import { Snackbar, SnackbarOrigin, Stack, AlertProps } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,

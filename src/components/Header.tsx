@@ -1,7 +1,4 @@
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import { AppBar, Toolbar, Typography, Box } from '@mui/material';
 import { useLocation } from 'react-router';
 import { SignOutHook } from '../hooks/SignOutHook';
 import * as AppConstants from '../commons/AppConstants';

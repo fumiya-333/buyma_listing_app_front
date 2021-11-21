@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from 'react';
+import { RefObject, ChangeEvent, useState } from 'react';
 import { httpGet } from '../commons/HttpUtil';
-import { isKeyExists, isNull, isEmailFormat } from '../commons/CheckedUtil';
+import { isNull, isEmailFormat } from '../commons/CheckedUtil';
 import * as AppConstants from '../commons/AppConstants';
 import { CookieUtil } from '../commons/CookieUtil';
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ import { getAddHoursNow } from '../commons/DateUtil';
  * @param progressDialogRef プログレスダイアログ参照オブジェクト
  * @returns ログイン入力管理用フック
  */
-export function SignInHook(warningMessageRef: any, progressDialogRef: any){
+export function SignInHook(warningMessageRef: RefObject<any>, progressDialogRef: RefObject<any>){
   /** メールアドレス */
   const [email, setEmail] = useState('');
   /** パスワード */
@@ -49,7 +49,7 @@ export function SignInHook(warningMessageRef: any, progressDialogRef: any){
     var message: string[] = [''];
     // 入力チェック
     if(!checkedInput(message)){
-      warningMessageRef.current?.showMessage({ vertical: 'top', horizontal: 'right' }, message[0]);
+      warningMessageRef.current?.showMessage(AppConstants.ANCOR_ORIGIN_TOP_RIGHT, message[0]);
       return;
     }
     // ログイン処理実行
@@ -86,28 +86,28 @@ export function SignInHook(warningMessageRef: any, progressDialogRef: any){
    * 
    */
   async function execSignIn(){
-    // プログレスダイアログ タイトル設定
-    progressDialogRef.current?.setTitle(AppConstants.ROAD_MSG_SIGN_IN);
-    // プログレスダイアログを開く
-    progressDialogRef.current?.showProgressDialog();
-    // ログイン処理API実行
-    const res = await httpGet(AppConstants.HTTP_URL_SIGN_IN, { params: { email: email, password: password } });
-    // プログレスダイアログを閉じる
-    progressDialogRef.current?.closeProgressDialog();
-    if(res.successFlg === AppConstants.ON_FLG){
-      if(!isKeyExists(res.data, AppConstants.KEY_MESSAGE)){
-        // クッキーの有効期限日付を取得
-        var date = getAddHoursNow(AppConstants.COOKIE_DATE_OF_EXPIRY_ADD_TIME);
-        // jwtトークンをクッキーに設定
-        saveCookie(AppConstants.KEY_TOKEN, res.data.token, date);
-        // 出品リスト画面へ遷移する
-        navigate(AppConstants.END_POINT_LISTING);
+    try {
+      // プログレスダイアログ タイトル設定
+      progressDialogRef.current?.setTitle(AppConstants.ROAD_MSG_SIGN_IN);
+      // プログレスダイアログを開く
+      progressDialogRef.current?.showProgressDialog();
+      // ログイン処理API実行
+      const res = await httpGet(AppConstants.HTTP_URL_SIGN_IN, { params: { email: email, password: password } });
+      // クッキーの有効期限日付を取得
+      var date = getAddHoursNow(AppConstants.COOKIE_DATE_OF_EXPIRY_ADD_TIME);
+      // jwtトークンをクッキーに設定
+      saveCookie(AppConstants.KEY_TOKEN, res.data.token, date);
+      // 出品リスト画面へ遷移する
+      navigate(AppConstants.END_POINT_LISTING);
+    } catch(e: any) {
+      if(!isNull(e.response)){
+        warningMessageRef.current?.showMessage(AppConstants.ANCOR_ORIGIN_TOP_RIGHT, e.response.data.message);
       }else{
-        warningMessageRef.current?.showMessage({ vertical: 'top', horizontal: 'right' }, res.data.message);
+        warningMessageRef.current?.showMessage(AppConstants.ANCOR_ORIGIN_TOP_RIGHT, AppConstants.ERR_MSG_SIGN_IN);
       }
-    }else{
-      console.log(res.err);
-      warningMessageRef.current?.showMessage({ vertical: 'top', horizontal: 'right' }, AppConstants.ERR_MSG_SIGN_IN);
+    } finally {
+      // プログレスダイアログを閉じる
+      progressDialogRef.current?.closeProgressDialog();
     }
   }
 
