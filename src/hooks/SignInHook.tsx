@@ -1,10 +1,13 @@
 import { RefObject, ChangeEvent, useState } from 'react';
+import { SnackbarOrigin } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 import { httpGet } from '../commons/HttpUtil';
 import { isNull, isEmailFormat } from '../commons/CheckedUtil';
 import * as AppConstants from '../commons/AppConstants';
 import { CookieUtil } from '../commons/CookieUtil';
-import { useNavigate } from "react-router-dom";
 import { getAddHoursNow } from '../commons/DateUtil';
+import { WarningMessageHandles } from '../components/WarningMessage';
+import { ProgressDialogHandles } from '../components/ProgressDialog';
 
 /**
  * ログイン入力管理用フック
@@ -13,7 +16,7 @@ import { getAddHoursNow } from '../commons/DateUtil';
  * @param progressDialogRef プログレスダイアログ参照オブジェクト
  * @returns ログイン入力管理用フック
  */
-export const SignInHook = (warningMessageRef: RefObject<any>, progressDialogRef: RefObject<any>) => {
+export const SignInHook = (warningMessageRef: RefObject<WarningMessageHandles>, progressDialogRef: RefObject<ProgressDialogHandles>) => {
   /** メールアドレス */
   const [email, setEmail] = useState('');
   /** パスワード */
@@ -49,7 +52,7 @@ export const SignInHook = (warningMessageRef: RefObject<any>, progressDialogRef:
     var message: string[] = [''];
     // 入力チェック
     if(!checkedInput(message)){
-      warningMessageRef.current?.showMessage(AppConstants.ANCOR_ORIGIN_TOP_RIGHT, message[0]);
+      warningMessageRef.current?.showMessage(AppConstants.ANCOR_ORIGIN_TOP_RIGHT as SnackbarOrigin, message[0]);
       return;
     }
     // ログイン処理実行
@@ -86,29 +89,31 @@ export const SignInHook = (warningMessageRef: RefObject<any>, progressDialogRef:
    * 
    */
   const execSignIn = async () => {
-    try {
       // プログレスダイアログ タイトル設定
       progressDialogRef.current?.setTitle(AppConstants.ROAD_MSG_SIGN_IN);
       // プログレスダイアログを開く
       progressDialogRef.current?.showProgressDialog();
       // ログイン処理API実行
-      const res = await httpGet(AppConstants.HTTP_URL_SIGN_IN, { params: { email: email, password: password } });
-      // クッキーの有効期限日付を取得
-      var date = getAddHoursNow(AppConstants.COOKIE_DATE_OF_EXPIRY_ADD_TIME);
-      // jwtトークンをクッキーに設定
-      saveCookie(AppConstants.KEY_TOKEN, res.data.token, date);
-      // 出品リスト画面へ遷移する
-      navigate(AppConstants.END_POINT_LISTING);
-    } catch(e: any) {
-      if(!isNull(e.response)){
-        warningMessageRef.current?.showMessage(AppConstants.ANCOR_ORIGIN_TOP_RIGHT, e.response.data.message);
-      }else{
-        warningMessageRef.current?.showMessage(AppConstants.ANCOR_ORIGIN_TOP_RIGHT, AppConstants.ERR_MSG_SIGN_IN);
-      }
-    } finally {
-      // プログレスダイアログを閉じる
-      progressDialogRef.current?.closeProgressDialog();
-    }
+      return await httpGet(AppConstants.HTTP_URL_SIGN_IN, { params: { email: email, password: password } })
+      .then(({ data }) => {
+        // クッキーの有効期限日付を取得
+        const cookieExpirationDate = getAddHoursNow(AppConstants.COOKIE_DATE_OF_EXPIRY_ADD_TIME);
+        // jwtトークンをクッキーに設定
+        saveCookie(AppConstants.KEY_TOKEN, data.token, cookieExpirationDate);
+        // 出品リスト画面へ遷移する
+        navigate(AppConstants.END_POINT_LISTING);
+      })
+      .catch((e) => {
+        if(!isNull(e.response)){
+          warningMessageRef.current?.showMessage(AppConstants.ANCOR_ORIGIN_TOP_RIGHT as SnackbarOrigin, e.response.data.message);
+        }else{
+          warningMessageRef.current?.showMessage(AppConstants.ANCOR_ORIGIN_TOP_RIGHT as SnackbarOrigin, AppConstants.ERR_MSG_SIGN_IN);
+        }
+      })
+      .finally(() => {
+        // プログレスダイアログを閉じる
+        progressDialogRef.current?.closeProgressDialog();
+      });
   }
 
   return { email, password, changeEmail, changePassword, procSignIn };

@@ -11,14 +11,12 @@ axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
  * @returns 処理結果（成功/失敗）
  */
 export const httpGet = async (url: string, params: object) => {
-  try {
-    return await axios.get(url, params);
-  } catch(e: any) {
-    if(e.response === undefined){
-      console.log(e.message);
+  return await axios.get(url, params).catch((e) => { 
+    if(e.response === undefined) {
+      console.log(e.message); 
     }
     throw e;
-  }
+  });
 }
 
 /**
@@ -29,12 +27,10 @@ export const httpGet = async (url: string, params: object) => {
  * @returns 処理結果（成功/失敗）
  */
 export const httpPost = async (url: string, params: object) => {
-  try {
-    return await axios.post(url, params);
-  } catch(e: any) {
-    if(e.response === undefined){
-      console.log(e.message);
+  return await axios.post(url, params).catch((e) => { 
+    if(e.response === undefined) {
+      console.log(e.message); 
     }
     throw e;
-  }
+  });
 }
