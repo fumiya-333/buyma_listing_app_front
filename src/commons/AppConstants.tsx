@@ -9,7 +9,7 @@ export const COOKIE_DATE_OF_EXPIRY_ADD_TIME = 1;
 /** ログイン処理 エラーメッセージ */
 export const ERR_MSG_SIGN_IN = 'ログイン処理中にエラーが発生しました。';
 /** 入力形式 エラーメッセージ */
-export const ERR_MSG_FORMAT = '正しい形式';
+export const ERR_MSG_FORMAT = '正しい形式で';
 /** 未入力 エラーメッセージ */
 export const ERR_MSG_INPUT = 'を入力して下さい。';
 

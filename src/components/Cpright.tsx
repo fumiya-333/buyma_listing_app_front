@@ -1,4 +1,9 @@
+import { VFC } from 'react';
 import { Typography, Link } from '@mui/material';
+
+type Props = {
+  sx: any
+};
 
 /**
  * コピーライト用コンポーネント
@@ -6,7 +11,7 @@ import { Typography, Link } from '@mui/material';
  * @param props プロパティ
  * @returns コピーライト
  */
-export const Cpright = (props: any) => {
+export const Cpright: VFC<Props> = (props) => {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}

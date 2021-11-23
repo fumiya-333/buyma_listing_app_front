@@ -1,10 +1,12 @@
-import { useRef } from 'react';
+import { VFC, useRef } from 'react';
 import { Avatar, Button, CssBaseline, TextField, Box, Typography, Container, createTheme, ThemeProvider  } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Cpright } from '../../components/Cpright';
 import { SignInHook } from '../../hooks/SignInHook';
 import { WarningMessage, WarningMessageHandles } from '../../components/WarningMessage';
 import { ProgressDialog, ProgressDialogHandles } from '../../components/ProgressDialog';
+
+type Props = {};
 
 /** テーマの作成 */
 const theme = createTheme();
@@ -14,7 +16,7 @@ const theme = createTheme();
  * 
  * @returns ログインコンテンツ
  */
-export const SignInContents = () => {
+export const SignInContents: VFC<Props> = () => {
   /** 警告メッセージ参照オブジェクト */
   const warningMessageRef = useRef<WarningMessageHandles>(null);
   /** プログレスダイアログ参照オブジェクト */

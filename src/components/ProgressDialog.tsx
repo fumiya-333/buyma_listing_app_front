@@ -1,6 +1,10 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { VFC, forwardRef, useImperativeHandle } from 'react';
 import { Dialog, DialogContent, DialogContentText, DialogTitle, LinearProgress } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+
+type Props = {
+  ref: any
+};
 
 const useStyles = makeStyles({
   topScrollPaper: {
@@ -21,7 +25,7 @@ export interface ProgressDialogHandles {
  * @param ref コンポーネント参照オブジェクト
  * @returns プログレスダイアログ
  */
-export const ProgressDialog = forwardRef<ProgressDialogHandles>((props, ref) => {
+export const ProgressDialog: VFC<Props> = forwardRef<ProgressDialogHandles>((props, ref) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState('');

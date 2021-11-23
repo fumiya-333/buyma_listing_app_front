@@ -1,3 +1,4 @@
+import { VFC } from 'react';
 import { Route, Routes } from 'react-router-dom'
 import { Listing } from './pages/listing/Listing';
 import { Contacts } from './pages/contacts/Contacts';
@@ -8,7 +9,9 @@ import { SignIn } from './pages/signIn/SignIn';
 import { PrivateRoute } from './PrivateRoute';
 import * as AppConstants from './commons/AppConstants';
 
-export const ReactRoutes = () => {
+type Props = {};
+
+export const ReactRoutes: VFC<Props> = () => {
   return (
     <Routes>
       <Route path={ AppConstants.END_POINT_LISTING } element={<PrivateRoute><Listing/></PrivateRoute>}/>

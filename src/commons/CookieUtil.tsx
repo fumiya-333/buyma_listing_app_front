@@ -17,7 +17,7 @@ export const CookieUtil = () => {
    * @param date cookie有効期限日付
    */
   const saveCookie = (key: string, value: any, date: Date | null) => {
-    date === null ? setCookie(key, value) : setCookie(key, value, { expires: date });
+    !date ? setCookie(key, value) : setCookie(key, value, { expires: date });
   }
 
   /**

@@ -1,8 +1,11 @@
+import { VFC } from 'react';
 import { Box } from '@mui/material';
 import { Header } from '../../components/Header';
 import { Sidebar } from '../../components/Sidebar';
 
-export const Setting = () => {
+type Props = {};
+
+export const Setting: VFC<Props> = () => {
   return (
     <>
       <Box sx={{ overflow: 'auto' }}>

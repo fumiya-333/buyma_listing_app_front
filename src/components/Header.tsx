@@ -1,14 +1,17 @@
+import { VFC } from 'react';
 import { AppBar, Toolbar, Typography, Box } from '@mui/material';
 import { useLocation } from 'react-router';
 import { SignOutHook } from '../hooks/SignOutHook';
 import * as AppConstants from '../commons/AppConstants';
+
+type Props = {};
 
 /**
  * ヘッダー用コンポーネント
  * 
  * @returns ヘッダー
  */
-export const Header = () => {
+export const Header: VFC<Props> = () => {
   const location = useLocation();
   const { procSignOut } = SignOutHook();
 

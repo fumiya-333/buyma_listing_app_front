@@ -1,6 +1,10 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { VFC, forwardRef, useImperativeHandle } from 'react';
 import { Snackbar, SnackbarOrigin, Stack, AlertProps } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
+
+type Props = {
+  ref: any
+};
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -24,7 +28,7 @@ export interface WarningMessageHandles {
  * @param ref コンポーネント参照オブジェクト
  * @returns 警告メッセージ
  */
-export const WarningMessage = forwardRef<WarningMessageHandles>((props, ref) => {
+export const WarningMessage: VFC<Props> = forwardRef<WarningMessageHandles>((props, ref) => {
   /** メッセージ */
   const [message, setMessage] = React.useState('');
 

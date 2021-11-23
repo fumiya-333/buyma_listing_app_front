@@ -25,7 +25,7 @@ export const addHours = (date: Date, addHours: number) => {
  * @returns 時間を加算した日付オブジェクト
  */
 export const getAddHoursNow = (hours: number) => {
-  var date = getNow();
+  const date = getNow();
   addHours(date, hours);
 
   return date;

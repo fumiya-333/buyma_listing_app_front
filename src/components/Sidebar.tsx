@@ -1,3 +1,4 @@
+import { VFC } from 'react';
 import { Box, Drawer, Toolbar, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import CallToActionIcon from '@mui/icons-material/CallToAction';
 import ViewListIcon from '@mui/icons-material/ViewList';
@@ -7,6 +8,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { NavLink } from 'react-router-dom';
 import * as AppConstants from '../commons/AppConstants';
 
+type Props = {};
+
 /** 横幅 */
 const drawerWidth = 240;
 
@@ -15,7 +18,7 @@ const drawerWidth = 240;
  * 
  * @returns サイドバー
  */
-export const Sidebar = () => {
+export const Sidebar: VFC<Props> = () => {
   return (
       <Drawer
         variant="permanent"

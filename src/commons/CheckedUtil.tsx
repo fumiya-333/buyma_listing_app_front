@@ -12,16 +12,6 @@ export const isKeyExists = (obj: object, key: string) => {
 }
 
 /**
- * 文字列存在チェック
- * 
- * @param s 文字列
- * @returns 文字列存在チェック結果
- */
-export const isNull = (s: string) => {
-  return s === '' || s === undefined || s === null
-}
-
-/**
  * メールアドレスフォーマットチェック
  * 
  * @param email メールアドレス
