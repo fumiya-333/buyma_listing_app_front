@@ -13,8 +13,8 @@ type Props = {};
 export const SignIn: VFC<Props> = () => {
   return (
     <>
-      <Box sx={{ overflow: 'auto' }}>
-        <Header />
+      <Box sx={{ display: 'flex' }}>
+        <Header/>
         <SignInContents />
       </Box>
     </>

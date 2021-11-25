@@ -8,7 +8,7 @@ type Props = {};
 export const Listing: VFC<Props> = () => {
   return (
     <>
-      <Box sx={{ overflow: 'auto' }}>
+      <Box sx={{ display: 'flex' }}>
         <Header />
         <Sidebar />
       </Box>

@@ -1,5 +1,5 @@
 import { VFC, useRef } from 'react';
-import { Avatar, Button, CssBaseline, TextField, Box, Typography, Container, createTheme, ThemeProvider  } from '@mui/material';
+import { Avatar, Button, TextField, Box, Typography, Container, Toolbar, createTheme, ThemeProvider } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Cpright } from '../../components/Cpright';
 import { SignInHook } from '../../hooks/SignInHook';
@@ -27,15 +27,15 @@ export const SignInContents: VFC<Props> = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 5,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
+          <Toolbar/>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>

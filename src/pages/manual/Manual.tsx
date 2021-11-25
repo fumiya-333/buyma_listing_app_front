@@ -5,10 +5,10 @@ import { Sidebar } from '../../components/Sidebar';
 
 type Props = {};
 
-export const Manual: VFC<Props>  = () => {
+export const Manual: VFC<Props> = () => {
   return (
     <>
-      <Box sx={{ overflow: 'auto' }}>
+      <Box sx={{ display: 'flex' }}>
         <Header />
         <Sidebar />
       </Box>

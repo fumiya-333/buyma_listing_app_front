@@ -8,7 +8,7 @@ type Props = {};
 export const Setting: VFC<Props> = () => {
   return (
     <>
-      <Box sx={{ overflow: 'auto' }}>
+      <Box sx={{ display: 'flex' }}>
         <Header />
         <Sidebar />
       </Box>

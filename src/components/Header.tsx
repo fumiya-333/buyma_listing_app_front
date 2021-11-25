@@ -17,17 +17,17 @@ export const Header: VFC<Props> = () => {
 
   return (
     <AppBar position="absolute" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar variant="dense">
-            <Typography variant="h6" color="inherit" component="div">
-              外注管理システム
-            </Typography>
-            <Box sx={{ flexGrow: 1 }} />
-            { location.pathname !== AppConstants.END_POINT_SIGN_IN &&
-              <Typography sx= {{ cursor: "pointer" }} color="inherit" onClick={procSignOut} component="div">
-                ログアウト
-              </Typography>
-            }
-        </Toolbar>
+      <Toolbar variant="dense">
+        <Typography variant="h6" color="inherit" component="div">
+          外注管理システム
+        </Typography>
+        <Box sx={{ flexGrow: 1 }} />
+        { location.pathname !== AppConstants.END_POINT_SIGN_IN &&
+          <Typography sx= {{ cursor: "pointer" }} color="inherit" onClick={procSignOut} component="div">
+            ログアウト
+          </Typography>
+        }
+      </Toolbar>
     </AppBar>
   );
 }
