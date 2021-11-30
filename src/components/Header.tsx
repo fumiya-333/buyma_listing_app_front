@@ -16,7 +16,7 @@ export const Header: VFC<Props> = () => {
   const { procSignOut } = SignOutHook();
 
   return (
-    <AppBar position="absolute" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar variant="dense">
         <Typography variant="h6" color="inherit" component="div">
           外注管理システム
