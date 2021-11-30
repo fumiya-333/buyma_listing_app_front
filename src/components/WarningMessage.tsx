@@ -1,12 +1,12 @@
-import React, { VFC, forwardRef, useImperativeHandle } from 'react';
+import { VFC, useState, forwardRef, useImperativeHandle, ForwardedRef } from 'react';
 import { Snackbar, SnackbarOrigin, Stack, AlertProps } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 
 type Props = {
-  ref: any
+  ref: ForwardedRef<WarningMessageHandles>
 };
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref,
 ) {
@@ -30,10 +30,10 @@ export interface WarningMessageHandles {
  */
 export const WarningMessage: VFC<Props> = forwardRef<WarningMessageHandles>((props, ref) => {
   /** メッセージ */
-  const [message, setMessage] = React.useState('');
+  const [message, setMessage] = useState('');
 
   /** メッセージ表示、表示位置状態管理 */
-  const [state, setState] = React.useState<State>({
+  const [state, setState] = useState<State>({
     open: false,
     vertical: 'top',
     horizontal: 'right'
