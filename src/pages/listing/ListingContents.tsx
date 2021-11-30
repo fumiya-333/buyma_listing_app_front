@@ -72,19 +72,19 @@ export const ListingContents: VFC<Props> = () => {
       { key: 47, value: "沖縄県"}]};
     const datePickers = [false,false,false,false,false,true];
     const widths = ['80px','100px','100px','100px','200px',''];
-    const isHiddenCols = [false, true, true, true, true, true, false];
-    const isEditCols = [false, false, true, true, true, true, false];
+    const isHiddenCols = [false, true, true, true, true, true];
+    const isEditCols = [false, false, true, true, true, true];
     const cols = ['ID','lastvalue','firstvalue','age','prefecture','date'];
     const rows = [
-      { id: 1, lastvalue: 'Snow', firstvalue: 'Jon', age: 35, prefectures: "1", date: '2021/11/28', isEditMode: true },
-      { id: 2, lastvalue: 'Lannister', firstvalue: 'Cersei', age: 42, prefectures: "1", date: '2021/11/28', isEditMode: true },
-      { id: 3, lastvalue: 'Lannister', firstvalue: 'Jaime', age: 45, prefectures: "2", date: '2021/11/28', isEditMode: true },
-      { id: 4, lastvalue: 'Stark', firstvalue: 'Arya', age: 16, prefectures: "2", date: '2021/11/28', isEditMode: true },
-      { id: 5, lastvalue: 'Targaryen', firstvalue: 'Daenerys', age: 23, prefectures: "3", date: '2021/11/28', isEditMode: true },
-      { id: 6, lastvalue: 'Melisandre', firstvalue: 'abc', age: 150, prefectures: "4", date: '2021/11/28', isEditMode: true },
-      { id: 7, lastvalue: 'Clifford', firstvalue: 'Ferrara', age: 44, prefectures: "5", date: '2021/11/28', isEditMode: true },
-      { id: 8, lastvalue: 'Frances', firstvalue: 'Rossini', age: 36, prefectures: "6", date: '2021/11/28', isEditMode: true },
-      { id: 9, lastvalue: 'Roxie', firstvalue: 'Harvey', age: 65, prefectures: "7", date: '2021/11/28', isEditMode: true },
+      { id: 1, lastvalue: 'Snow', firstvalue: 'Jon', age: 35, prefectures: "1", date: '2021/11/28' },
+      { id: 2, lastvalue: 'Lannister', firstvalue: 'Cersei', age: 42, prefectures: "1", date: '2021/11/28' },
+      { id: 3, lastvalue: 'Lannister', firstvalue: 'Jaime', age: 45, prefectures: "2", date: '2021/11/28' },
+      { id: 4, lastvalue: 'Stark', firstvalue: 'Arya', age: 16, prefectures: "2", date: '2021/11/28' },
+      { id: 5, lastvalue: 'Targaryen', firstvalue: 'Daenerys', age: 23, prefectures: "3", date: '2021/11/28' },
+      { id: 6, lastvalue: 'Melisandre', firstvalue: 'abc', age: 150, prefectures: "4", date: '2021/11/28' },
+      { id: 7, lastvalue: 'Clifford', firstvalue: 'Ferrara', age: 44, prefectures: "5", date: '2021/11/28' },
+      { id: 8, lastvalue: 'Frances', firstvalue: 'Rossini', age: 36, prefectures: "6", date: '2021/11/28' },
+      { id: 9, lastvalue: 'Roxie', firstvalue: 'Harvey', age: 65, prefectures: "7", date: '2021/11/28' },
     ];
 
     customTableRef.current?.setSelects(prefectures);
