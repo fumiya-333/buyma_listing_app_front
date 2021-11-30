@@ -3,6 +3,9 @@ export const OFF_FLG = 0;
 /** フラグ オン */
 export const ON_FLG = 1;
 
+/** 正規表現 フラグ 大文字・小文字を区別しない */
+export const REG_EXP_FLG_I = 'i';
+
 /** cookie 有効期限 加算時間 */
 export const COOKIE_DATE_OF_EXPIRY_ADD_TIME = 1;
 
