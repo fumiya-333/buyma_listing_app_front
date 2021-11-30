@@ -1,9 +1,9 @@
-import React, { VFC, forwardRef, useImperativeHandle } from 'react';
+import { VFC, useState, forwardRef, useImperativeHandle, ForwardedRef } from 'react';
 import { Dialog, DialogContent, DialogContentText, DialogTitle, LinearProgress } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 type Props = {
-  ref: any
+  ref: ForwardedRef<ProgressDialogHandles>
 };
 
 const useStyles = makeStyles({
@@ -27,8 +27,8 @@ export interface ProgressDialogHandles {
  */
 export const ProgressDialog: VFC<Props> = forwardRef<ProgressDialogHandles>((props, ref) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [title, setTitle] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState('');
 
   useImperativeHandle(ref, () => ({
 

@@ -2,7 +2,7 @@ import { VFC } from 'react';
 import { Typography, Link } from '@mui/material';
 
 type Props = {
-  sx: any
+  sx: { [key: string]: number }
 };
 
 /**

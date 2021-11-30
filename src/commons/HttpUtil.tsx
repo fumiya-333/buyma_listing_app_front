@@ -12,7 +12,7 @@ axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
  */
 export const httpGet = async (url: string, params: object) => {
   return await axios.get(url, params).catch((e) => { 
-    if(e.response === undefined) {
+    if(!e.response) {
       console.log(e.message); 
     }
     throw e;
@@ -28,7 +28,7 @@ export const httpGet = async (url: string, params: object) => {
  */
 export const httpPost = async (url: string, params: object) => {
   return await axios.post(url, params).catch((e) => { 
-    if(e.response === undefined) {
+    if(!e.response) {
       console.log(e.message); 
     }
     throw e;
