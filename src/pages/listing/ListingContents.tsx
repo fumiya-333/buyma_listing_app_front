@@ -108,6 +108,13 @@ export const ListingContents: VFC<Props> = () => {
           variant="contained"
           sx={{ mr: 2 }}
         >
+          データ読み込み
+        </Button>
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ mr: 2 }}
+        >
           自動出品
         </Button>
         <Button

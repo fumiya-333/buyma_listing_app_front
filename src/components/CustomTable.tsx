@@ -1,4 +1,4 @@
-import { VFC, ForwardedRef, ChangeEvent, useState, forwardRef, useImperativeHandle } from 'react';
+import { VFC, ForwardedRef, ChangeEvent, useState, forwardRef, useImperativeHandle, useCallback } from 'react';
 import { TextField, MenuItem } from '@mui/material';
 import { LocalizationProvider, DesktopDatePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -16,7 +16,10 @@ export interface CustomTableHandles {
   setWidths(widths: string[]): void,
   setIsHiddenCols(isHiddenCols: boolean[]): void,
   setIsEditCols(isEditCols: boolean[]): void,
+  setRowOnChange(rowOnChange: {　(rowIdx: number, col: string, colIdx: number) :void　}): void
 }
+
+interface rowOnChangeCallback{(　rowIdx: number, col: string, colIdx: number) :void　};
 
 export const CustomTable: VFC<Props> = forwardRef<CustomTableHandles>((props, ref) => {
   const [cols, setCols] = useState<string[]>([]);
@@ -27,6 +30,7 @@ export const CustomTable: VFC<Props> = forwardRef<CustomTableHandles>((props, re
   const [widths, setWidths] = useState<string[]>([]);
   const [isHiddenCols, setIsHiddenCols] = useState<boolean[]>([]);
   const [isEditCols, setIsEditCols] = useState<boolean[]>([]);
+  const [rowOnChange, setRowOnChange] = useState<rowOnChangeCallback>();
 
   useImperativeHandle(ref, () => ({
 
@@ -66,18 +70,14 @@ export const CustomTable: VFC<Props> = forwardRef<CustomTableHandles>((props, re
 
     setIsEditCols(isEditCols: boolean[]){
       setIsEditCols(isEditCols);
+    },
+
+    setRowOnChange(rowOnChange: rowOnChangeCallback){
+      setRowOnChange(rowOnChange);
     }
   }));
 
-  const onChangeTextHandler = (rowIdx: number, col: string) => (e: ChangeEvent<HTMLInputElement>) =>  {
-    updateRows(rowIdx, col, e.target.value);
-  }
-
-  const onChangeDatePickerHandler = (rowIdx: number, col: string, value: Date | null) => {
-    updateRows(rowIdx, col, value);
-  }
-
-  const updateRows = (rowIdx: number, col: string, value: string | Date | null) => {
+  const updateRows = (rowIdx: number, col: string, colIdx: number, value: string | Date | null) => {
 
     if(!value){
       value = '';
@@ -90,7 +90,20 @@ export const CustomTable: VFC<Props> = forwardRef<CustomTableHandles>((props, re
     const _renderRows = [...filteredRows];
     _renderRows[rowIdx] = { ..._renderRows[rowIdx], [col]: value }
     setFilteredRows(_renderRows);
+
+    if(rowOnChange){
+      rowOnChange(rowIdx, col, colIdx);
+    }
   }
+
+  const onChangeTextHandler = useCallback((rowIdx: number, col: string, colIdx: number) => (e: ChangeEvent<HTMLInputElement>) =>  {
+    updateRows(rowIdx, col, colIdx, e.target.value);
+  }, [updateRows]);
+
+  const onChangeDatePickerHandler = useCallback((rowIdx: number, col: string, colIdx: number, value: Date | null) => {
+    updateRows(rowIdx, col, colIdx, value);
+  }, [updateRows]);
+
 
   return (
     <table className="table">
@@ -116,7 +129,7 @@ export const CustomTable: VFC<Props> = forwardRef<CustomTableHandles>((props, re
                             select
                             value={row[col]}
                             style={ widths && { width: widths[colIdx] } }
-                            onChange={onChangeTextHandler(rowIdx, col)}
+                            onChange={onChangeTextHandler(rowIdx, col, colIdx)}
                             key={selectIdx}
                           >
                             {Object.values(selects[selectKey]).map((option, optionIdx) => (
@@ -130,11 +143,11 @@ export const CustomTable: VFC<Props> = forwardRef<CustomTableHandles>((props, re
                                 <DesktopDatePicker
                                   inputFormat="yyyy/MM/dd"
                                   value={(row[col] as Date)}
-                                  onChange={(value: Date | null) => (onChangeDatePickerHandler(rowIdx, col, value))}
+                                  onChange={(value: Date | null) => (onChangeDatePickerHandler(rowIdx, col, colIdx, value))}
                                   renderInput={(params) => <TextField {...params} sx={{ width: 150 }}/>}
                                 />
                               </LocalizationProvider>
-                            : <TextField onChange={onChangeTextHandler(rowIdx, col)} variant="standard" value={row[col]}/>
+                            : <TextField onChange={onChangeTextHandler(rowIdx, col, colIdx)} variant="standard" value={row[col]}/>
                     ))
                     : row[col]
                   }
