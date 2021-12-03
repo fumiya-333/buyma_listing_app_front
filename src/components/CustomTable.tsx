@@ -11,7 +11,7 @@ export interface CustomTableHandles {
   setCols(_cols: string[]): void,
   setRows(_rows: {[key: string]: {}}[]): void,
   filteredRows(regex: RegExp): void,
-  setSelects(objects: {}): void,
+  setSelects(objects: {[key: string]: {}}): void,
   setIsDatePickers(datePickers: boolean[]): void,
   setWidths(widths: string[]): void,
   setIsHiddenCols(isHiddenCols: boolean[]): void,
@@ -52,7 +52,7 @@ export const CustomTable: VFC<Props> = forwardRef<CustomTableHandles>((props, re
       setFilteredRows(filteredRows);
     },
 
-    setSelects(objects: {}){
+    setSelects(objects: {[key: string]: {}}){
       setSelects(objects);
     },
 
@@ -77,7 +77,7 @@ export const CustomTable: VFC<Props> = forwardRef<CustomTableHandles>((props, re
     }
   }));
 
-  const updateRows = (rowIdx: number, col: string, colIdx: number, value: string | Date | null) => {
+  const updateRows = useCallback((rowIdx: number, col: string, colIdx: number, value: string | Date | null) => {
 
     if(!value){
       value = '';
@@ -94,7 +94,7 @@ export const CustomTable: VFC<Props> = forwardRef<CustomTableHandles>((props, re
     if(rowOnChange){
       rowOnChange(rowIdx, col, colIdx);
     }
-  }
+  }, [rows, filteredRows, setRows, setFilteredRows, rowOnChange]);
 
   const onChangeTextHandler = useCallback((rowIdx: number, col: string, colIdx: number) => (e: ChangeEvent<HTMLInputElement>) =>  {
     updateRows(rowIdx, col, colIdx, e.target.value);
@@ -111,18 +111,18 @@ export const CustomTable: VFC<Props> = forwardRef<CustomTableHandles>((props, re
         <tr className="tr">
           {cols.map((col, colIdx) => (
             isHiddenCols.length > 0 && isHiddenCols[colIdx] &&
-            <th className="th" style={ widths && { width: widths[colIdx] } } key={colIdx}>{col}</th>
+            <th className="th" style={ widths && { width: widths[colIdx] } } key={`head_row_${colIdx}`}>{col}</th>
           ))}
         </tr>
       </thead>
       <tbody className="tbody">
         {filteredRows.map((row, rowIdx) => (
-          <tr className="tr" key={rowIdx}>
+          <tr className="tr" key={`body_row_${rowIdx}`}>
             {Object.keys(row).map((col, colIdx) => (
               isHiddenCols.length > 0 && isHiddenCols[colIdx] &&
-                <td className="td" key={colIdx} style={ widths && { width: widths[colIdx] ,padding: isEditCols[colIdx] ? '8px 14px' : '14px' } }>
-                  {isEditCols[colIdx] 
-                    ? Object.keys(selects).map((selectKey, selectIdx) => (
+                <td className="td" key={`col_${rowIdx}_${colIdx}`} style={ widths && { width: widths[colIdx] ,padding: isEditCols[colIdx] ? '8px 14px' : '14px' } }>
+                  {isEditCols[colIdx]
+                    ? Object.keys(selects).map((selectKey) => (
                       col === selectKey
                         ? <TextField
                             id="outlined-select-currency"
@@ -130,24 +130,29 @@ export const CustomTable: VFC<Props> = forwardRef<CustomTableHandles>((props, re
                             value={row[col]}
                             style={ widths && { width: widths[colIdx] } }
                             onChange={onChangeTextHandler(rowIdx, col, colIdx)}
-                            key={selectIdx}
+                            key={`col_child_${rowIdx}_${colIdx}`}
                           >
                             {Object.values(selects[selectKey]).map((option, optionIdx) => (
-                              <MenuItem key={optionIdx} value={(Object.values(option as object) as number[] | string[])[0]}>
+                              <MenuItem key={`option_${rowIdx}_${colIdx}_${optionIdx}`} value={(Object.values(option as object) as number[] | string[])[0]}>
                                 {(Object.values(option as object) as number[] | string[])[1]}
                               </MenuItem>
                             ))}
                           </TextField>
-                          : isDatePickers[colIdx]
-                            ? <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <DesktopDatePicker
-                                  inputFormat="yyyy/MM/dd"
-                                  value={(row[col] as Date)}
-                                  onChange={(value: Date | null) => (onChangeDatePickerHandler(rowIdx, col, colIdx, value))}
-                                  renderInput={(params) => <TextField {...params} sx={{ width: 150 }}/>}
-                                />
-                              </LocalizationProvider>
-                            : <TextField onChange={onChangeTextHandler(rowIdx, col, colIdx)} variant="standard" value={row[col]}/>
+                        : isDatePickers[colIdx]
+                          ? <LocalizationProvider key={`col_child_${rowIdx}_${colIdx}`} dateAdapter={AdapterDateFns}>
+                              <DesktopDatePicker
+                                inputFormat="yyyy/MM/dd"
+                                value={(row[col] as Date)}
+                                onChange={(value: Date | null) => (onChangeDatePickerHandler(rowIdx, col, colIdx, value))}
+                                renderInput={(params) => <TextField {...params} sx={{ width: 150 }}/>}
+                              />
+                            </LocalizationProvider>
+                          : <TextField
+                              value={row[col]}
+                              onChange={onChangeTextHandler(rowIdx, col, colIdx)}
+                              variant="standard"
+                              key={`col_child_${rowIdx}_${colIdx}`}
+                            />
                     ))
                     : row[col]
                   }
