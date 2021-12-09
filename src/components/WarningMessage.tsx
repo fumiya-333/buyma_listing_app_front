@@ -29,6 +29,7 @@ export interface WarningMessageHandles {
  * @returns 警告メッセージ
  */
 export const WarningMessage: VFC<Props> = forwardRef<WarningMessageHandles>((props, ref) => {
+
   /** メッセージ */
   const [message, setMessage] = useState('');
 

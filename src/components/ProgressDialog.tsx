@@ -26,6 +26,7 @@ export interface ProgressDialogHandles {
  * @returns プログレスダイアログ
  */
 export const ProgressDialog: VFC<Props> = forwardRef<ProgressDialogHandles>((props, ref) => {
+
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');

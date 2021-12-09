@@ -1,13 +1,19 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import { App } from './App';
-import { CookiesProvider } from "react-cookie";
+import { CookiesProvider } from 'react-cookie';
+import { WarningMessageProvider } from './providers/WarningMessageProvider';
+import { ProgressDialogProvider } from './providers/ProgressDialogProvider';
+import './index.css';
 
 ReactDOM.render(
   <StrictMode>
     <CookiesProvider>
-      <App />
+      <WarningMessageProvider>
+        <ProgressDialogProvider>
+          <App />
+        </ProgressDialogProvider>
+      </WarningMessageProvider>
     </CookiesProvider>
   </StrictMode>,
   document.getElementById('root')

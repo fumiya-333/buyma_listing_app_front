@@ -17,6 +17,7 @@ import { ProgressDialogHandles } from '../components/ProgressDialog';
  * @returns ログイン入力管理用フック
  */
 export const SignInHook = (warningMessageRef: RefObject<WarningMessageHandles>, progressDialogRef: RefObject<ProgressDialogHandles>) => {
+
   /** メールアドレス */
   const [email, setEmail] = useState('');
   /** パスワード */

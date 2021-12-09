@@ -4,7 +4,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { SignInTemplate } from '../../templates/SignInTemplate';
 import { Cpright } from '../../components/Cpright';
 import { SignInHook } from '../../hooks/SignInHook';
-import { WarningMessageContext, ProgressDialogContext } from '../../templates/BaseTemplate';
+import { WarningMessageContext } from '../../providers/WarningMessageProvider';
+import { ProgressDialogContext } from '../../providers/ProgressDialogProvider';
 import { WarningMessage } from '../../components/WarningMessage';
 import { ProgressDialog } from '../../components/ProgressDialog';
 
