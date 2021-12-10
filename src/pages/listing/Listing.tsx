@@ -1,6 +1,9 @@
 import { VFC, useContext, useEffect } from 'react';
 import { Box, Toolbar, Button } from '@mui/material';
 import ViewColumnIcon from '@mui/icons-material/ViewColumn';
+import ReadMoreIcon from '@mui/icons-material/ReadMore';
+import CallMadeIcon from '@mui/icons-material/CallMade';
+import CachedIcon from '@mui/icons-material/Cached';
 import { SignUpTemplate } from '../../templates/SignUpTemplate';
 import { WarningMessageContext, ProgressDialogContext, CustomTableContext } from '../../templates/BaseTemplate';
 import { WarningMessage } from '../../components/WarningMessage';
@@ -101,32 +104,20 @@ export const Listing: VFC<Props> = () => {
 
   return (
     <SignUpTemplate>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, pl: 3, pr: 3 }}>
         <Toolbar />
         <div style={{ position: 'relative', marginBottom: 20 }}>
-          <Button color="primary" aria-label="search" size="small" sx={{ mr: 3 }}>
+          <Button color="primary" aria-label="search" size="small" sx={{ mr: 1 }}>
             <ViewColumnIcon /><b style={{ fontSize: 14 }}>&nbsp;カラム設定</b>
           </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ mr: 2 }}
-          >
-            データ読み込み
+          <Button color="primary" aria-label="search" size="small" sx={{ mr: 1 }}>
+            <ReadMoreIcon /><b style={{ fontSize: 14 }}>&nbsp;データ読み込み</b>
           </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ mr: 2 }}
-          >
-            自動出品
+          <Button color="primary" aria-label="search" size="small" sx={{ mr: 1 }}>
+            <CallMadeIcon /><b style={{ fontSize: 14 }}>&nbsp;自動出品</b>
           </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ mr: 2 }}
-          >
-            更新
+          <Button color="primary" aria-label="search" size="small" sx={{ mr: 1 }}>
+            <CachedIcon /><b style={{ fontSize: 14 }}>&nbsp;更新</b>
           </Button>
           <div style={{ position: 'absolute', right: 0, top: 0 }}>
             <SearchText placeholder='検索' execFilter={(searchRegex: RegExp) => customTableRef.current?.filteredRows(searchRegex)}/>
