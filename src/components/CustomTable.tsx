@@ -16,7 +16,7 @@ export interface CustomTableHandles {
   setWidths(widths: string[]): void,
   setIsHiddenCols(isHiddenCols: boolean[]): void,
   setIsEditCols(isEditCols: boolean[]): void,
-  setRowOnChange(rowOnChange: {　(rowIdx: number, col: string, colIdx: number) :void　}): void
+  setRowOnChange(rowOnChange: {　(rowIdx: number, col: string, colIdx: number) :void }): void
 }
 
 interface rowOnChangeCallback{(　rowIdx: number, col: string, colIdx: number) :void　};
@@ -122,38 +122,36 @@ export const CustomTable: VFC<Props> = forwardRef<CustomTableHandles>((props, re
               isHiddenCols.length > 0 && isHiddenCols[colIdx] &&
                 <td className="td" key={`col_${rowIdx}_${colIdx}`} style={ widths && { width: widths[colIdx] ,padding: isEditCols[colIdx] ? '8px 14px' : '14px' } }>
                   {isEditCols[colIdx]
-                    ? Object.keys(selects).map((selectKey) => (
-                      col === selectKey
-                        ? <TextField
-                            id="outlined-select-currency"
-                            select
-                            value={row[col]}
-                            style={ widths && { width: widths[colIdx] } }
-                            onChange={onChangeTextHandler(rowIdx, col, colIdx)}
-                            key={`col_child_${rowIdx}_${colIdx}`}
-                          >
-                            {Object.values(selects[selectKey]).map((option, optionIdx) => (
-                              <MenuItem key={`option_${rowIdx}_${colIdx}_${optionIdx}`} value={(Object.values(option as object) as number[] | string[])[0]}>
-                                {(Object.values(option as object) as number[] | string[])[1]}
-                              </MenuItem>
-                            ))}
-                          </TextField>
-                        : isDatePickers[colIdx]
-                          ? <LocalizationProvider key={`col_child_${rowIdx}_${colIdx}`} dateAdapter={AdapterDateFns}>
-                              <DesktopDatePicker
-                                inputFormat="yyyy/MM/dd"
-                                value={(row[col] as Date)}
-                                onChange={(value: Date | null) => (onChangeDatePickerHandler(rowIdx, col, colIdx, value))}
-                                renderInput={(params) => <TextField {...params} sx={{ width: 150 }}/>}
-                              />
-                            </LocalizationProvider>
-                          : <TextField
-                              value={row[col]}
-                              onChange={onChangeTextHandler(rowIdx, col, colIdx)}
-                              variant="standard"
-                              key={`col_child_${rowIdx}_${colIdx}`}
+                    ? col in selects
+                      ? <TextField
+                          id="outlined-select-currency"
+                          select
+                          value={row[col]}
+                          style={ widths && { width: widths[colIdx] } }
+                          onChange={onChangeTextHandler(rowIdx, col, colIdx)}
+                          key={`col_child_${rowIdx}_${colIdx}`}
+                        >
+                          {Object.values(selects[col]).map((option, optionIdx) => (
+                            <MenuItem key={`option_${rowIdx}_${colIdx}_${optionIdx}`} value={(Object.values(option as object) as number[] | string[])[0]}>
+                              {(Object.values(option as object) as number[] | string[])[1]}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      : isDatePickers[colIdx]
+                        ? <LocalizationProvider key={`col_child_${rowIdx}_${colIdx}`} dateAdapter={AdapterDateFns}>
+                            <DesktopDatePicker
+                              inputFormat="yyyy/MM/dd"
+                              value={(row[col] as Date)}
+                              onChange={(value: Date | null) => (onChangeDatePickerHandler(rowIdx, col, colIdx, value))}
+                              renderInput={(params) => <TextField {...params} sx={{ width: 150 }}/>}
                             />
-                    ))
+                          </LocalizationProvider>
+                        : <TextField
+                            value={row[col]}
+                            onChange={onChangeTextHandler(rowIdx, col, colIdx)}
+                            variant="standard"
+                            key={`col_child_${rowIdx}_${colIdx}`}
+                          />
                     : row[col]
                   }
                 </td>
