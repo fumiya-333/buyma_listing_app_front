@@ -1,4 +1,4 @@
-import { RefObject, ChangeEvent, useState, useCallback } from 'react';
+import { useContext, ChangeEvent, useState, useCallback } from 'react';
 import { SnackbarOrigin } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { httpGet } from '../commons/HttpUtil';
@@ -6,8 +6,8 @@ import { isEmailFormat } from '../commons/CheckedUtil';
 import * as AppConstants from '../commons/AppConstants';
 import { CookieUtil } from '../commons/CookieUtil';
 import { getAddHoursNow } from '../commons/DateUtil';
-import { WarningMessageHandles } from '../components/WarningMessage';
-import { ProgressDialogHandles } from '../components/ProgressDialog';
+import { WarningMessageContext } from '../providers/WarningMessageProvider';
+import { ProgressDialogContext } from '../providers/ProgressDialogProvider';
 
 /**
  * ログイン入力管理用フック
@@ -16,7 +16,7 @@ import { ProgressDialogHandles } from '../components/ProgressDialog';
  * @param progressDialogRef プログレスダイアログ参照オブジェクト
  * @returns ログイン入力管理用フック
  */
-export const SignInHook = (warningMessageRef: RefObject<WarningMessageHandles>, progressDialogRef: RefObject<ProgressDialogHandles>) => {
+export const SignInHook = () => {
 
   /** メールアドレス */
   const [email, setEmail] = useState('');
@@ -26,6 +26,11 @@ export const SignInHook = (warningMessageRef: RefObject<WarningMessageHandles>, 
   const { saveCookie } = CookieUtil();
   /** 画面遷移 */
   const navigate = useNavigate();
+
+  /** 警告メッセージ 参照オブジェクト */
+  const warningMessageRef = useContext(WarningMessageContext);
+  /** プログレスダイアログ 参照オブジェクト */
+  const progressDialogRef = useContext(ProgressDialogContext);
 
   /**
    * メールアドレス入力変更

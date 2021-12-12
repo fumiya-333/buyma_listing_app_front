@@ -24,7 +24,7 @@ export const SignIn: VFC<Props> = () => {
   const progressDialogRef = useContext(ProgressDialogContext);
 
   /** ログイン入力管理 */
-  const { email, password, changeEmail, changePassword, procSignIn } = SignInHook(warningMessageRef, progressDialogRef);
+  const { email, password, changeEmail, changePassword, procSignIn } = SignInHook();
 
   return (
     <SignInTemplate>
