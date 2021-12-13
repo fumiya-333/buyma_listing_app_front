@@ -4,7 +4,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { SignInTemplate } from '../../templates/SignInTemplate';
 import { Cpright } from '../../components/Cpright';
 import { SignInHook } from '../../hooks/SignInHook';
-import { WarningMessageContext, ProgressDialogContext } from '../../templates/BaseTemplate';
+import { WarningMessageContext } from '../../providers/WarningMessageProvider';
+import { ProgressDialogContext } from '../../providers/ProgressDialogProvider';
 import { WarningMessage } from '../../components/WarningMessage';
 import { ProgressDialog } from '../../components/ProgressDialog';
 
@@ -23,7 +24,7 @@ export const SignIn: VFC<Props> = () => {
   const progressDialogRef = useContext(ProgressDialogContext);
 
   /** ログイン入力管理 */
-  const { email, password, changeEmail, changePassword, procSignIn } = SignInHook(warningMessageRef, progressDialogRef);
+  const { email, password, emailErrFlg, passwordErrFlg, emailErrMsg, passwordErrMsg, changeEmail, changePassword, procSignIn } = SignInHook();
 
   return (
     <SignInTemplate>
@@ -54,6 +55,8 @@ export const SignIn: VFC<Props> = () => {
               autoComplete="email"
               onChange={changeEmail}
               autoFocus
+              error={emailErrFlg}
+              helperText={emailErrMsg}
             />
             <TextField
               margin="normal"
@@ -65,6 +68,8 @@ export const SignIn: VFC<Props> = () => {
               id="password"
               onChange={changePassword}
               autoComplete="current-password"
+              error={passwordErrFlg}
+              helperText={passwordErrMsg}
             />
             <Button
               type="submit"

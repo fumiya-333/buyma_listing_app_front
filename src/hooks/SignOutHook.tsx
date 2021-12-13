@@ -9,6 +9,7 @@ import { useCallback } from 'react';
  * @returns ログアウト管理用フック
  */
 export const SignOutHook = () => {
+
   /** クッキー処理 */
   const { deleteCookie } = CookieUtil();
   /** 画面遷移 */

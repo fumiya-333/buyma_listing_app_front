@@ -12,6 +12,7 @@ type Props = {};
  * @returns ヘッダー
  */
 export const Header: VFC<Props> = () => {
+
   const location = useLocation();
   const { procSignOut } = SignOutHook();
 
