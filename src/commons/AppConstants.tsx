@@ -6,12 +6,14 @@ export const ON_FLG = 1;
 /** cookie 有効期限 加算時間 */
 export const COOKIE_DATE_OF_EXPIRY_ADD_TIME = 1;
 
+/** 入力エラー */
+export const ERR_MSG_INPUT = '入力内容に誤りがあります。ご確認下さい。';
 /** ログイン処理 エラーメッセージ */
 export const ERR_MSG_SIGN_IN = 'ログイン処理中にエラーが発生しました。';
 /** 入力形式 エラーメッセージ */
 export const ERR_MSG_FORMAT = '正しい形式で';
 /** 未入力 エラーメッセージ */
-export const ERR_MSG_INPUT = 'を入力して下さい。';
+export const ERR_MSG_PLEASE_INPUT = 'を入力して下さい。';
 
 /** ログイン処理 プログレスダイアログメッセージ */
 export const ROAD_MSG_SIGN_IN = 'ログイン処理を行っています。';
@@ -20,6 +22,12 @@ export const ROAD_MSG_SIGN_IN = 'ログイン処理を行っています。';
 export const ATTR_EMAIL = 'メールアドレス';
 /** 属性 パスワード */
 export const ATTR_PASSWORD = 'パスワード';
+
+/** 属性 メールアドレス（物理名） */
+export const ATTR_PHYSICS_EMAIL = 'email';
+
+/** 属性 パスワード（物理名） */
+export const ATTR_PHYSICS_PASSWORD = 'password';
 
 /** HTTP URL ログイン処理API */
 export const HTTP_URL_SIGN_IN = 'sign_in';
