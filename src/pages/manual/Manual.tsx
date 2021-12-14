@@ -1,15 +1,13 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import { Header } from '../../components/Header';
-import { Sidebar } from '../../components/Sidebar';
+import { VFC } from 'react';
+import { Box } from '@mui/material';
+import { SignUpTemplate } from '../../templates/SignUpTemplate';
 
-export function Manual() {
+type Props = {};
+
+export const Manual: VFC<Props> = () => {
   return (
-    <React.Fragment>
-      <Box sx={{ overflow: 'auto' }}>
-        <Header />
-        <Sidebar />
-      </Box>
-    </React.Fragment>
+    <SignUpTemplate>
+      <Box></Box>
+    </SignUpTemplate>
   );
 }
